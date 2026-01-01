@@ -978,12 +978,24 @@ class w2grid extends w2base {
             // if both objects are strictly equal, we're done
             if (aa === bb)
                 return 0
+            let dir = (direction.toLowerCase() === 'asc') ? 1 : -1
+
+            // if we have comparison callback, let it make all decisions,
+            // including how nulls sort
+            if (typeof sortMode == 'function') {
+                const res = sortMode(aa, bb)
+                if (res === Infinity)
+                    return 1
+                if (res === -Infinity)
+                    return -1
+                return res * dir
+            }
+
             // all nulls, empty and undefined on bottom
             if ((aa == null || aa === '') && (bb != null && bb !== ''))
                 return 1
             if ((aa != null && aa !== '') && (bb == null || bb === ''))
                 return -1
-            let dir = (direction.toLowerCase() === 'asc') ? 1 : -1
             // for different kind of objects, sort by object type
             if (typeof aa != typeof bb)
                 return (typeof aa > typeof bb) ? dir : -dir
