@@ -985,7 +985,12 @@ class w2grid extends w2base {
             // if we have comparison callback, let it make all decisions,
             // including how nulls sort
             if (typeof sortMode == 'function') {
-                return sortMode(aa, bb) * dir
+                const res = sortMode(aa, bb)
+                if (res === Infinity)
+                    return 1
+                if (res === -Infinity)
+                    return -1
+                return res * dir
             }
 
             // all nulls, empty and undefined on bottom
