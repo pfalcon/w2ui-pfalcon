@@ -5304,7 +5304,7 @@ class w2grid extends w2base {
                 for (let s = 0; s < this.searchData.length; s++) {
                     let sdata = this.searchData[s]
                     let fld   = this.getSearch(sdata.field)
-                    if (!fld || fld.hidden) continue
+                    if (fld && fld.hidden) continue
                     let ind = this.getColumn(sdata.field, true)
                     search.push({ field: sdata.field, search: sdata.value, col: ind })
                 }
