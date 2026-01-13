@@ -1653,6 +1653,9 @@ class w2form extends w2base {
                     if (act.text) info.text = act.text
                     if (act.style) info.style = act.style
                     if (act.class) info.class = act.class
+                } else if (typeof act === 'string') {
+                    // quick "action_id: 'Action Label'" syntax
+                    info.text = act
                 } else {
                     info.text = a
                     if (['save', 'update', 'create'].includes(a.toLowerCase())) info.class = 'w2ui-btn-blue'; else info.class = ''
