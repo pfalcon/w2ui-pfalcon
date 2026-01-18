@@ -50,7 +50,7 @@
 </div>
 
 <div class="obj-property">
-    <a href="w2grid.clipboardCopy">clipboardCopy</a> <span>- clipboardCopy(ind, col_ind)</span>
+    <a href="w2grid.clipboardCopy">clipboardCopy</a> <span>- clipboardCopy(index, column_index)</span>
 </div>
 <div class="obj-property-desc">
     Copies the content of a cell to the clipboard.
@@ -92,14 +92,14 @@
 </div>
 
 <div class="obj-property">
-    <a href="w2grid.columnTooltipHide">columnTooltipHide</a> <span>- columnTooltipHide(ind, [event])</span>
+    <a href="w2grid.columnTooltipHide">columnTooltipHide</a> <span>- columnTooltipHide(index, [event])</span>
 </div>
 <div class="obj-property-desc">
     Hides tooltip of specific column.
 </div>
 
 <div class="obj-property">
-    <a href="w2grid.columnTooltipShow">columnTooltipShow</a> <span>- columnTooltipShow(ind, [event])</span>
+    <a href="w2grid.columnTooltipShow">columnTooltipShow</a> <span>- columnTooltipShow(index, [event])</span>
 </div>
 <div class="obj-property-desc">
     Displays tooltip of specific column.
@@ -183,14 +183,14 @@
 </div>
 
 <div class="obj-property">
-    <a href="w2grid.getCellCopy">getCellCopy</a> <span>- getCellCopy(ind, col_ind)</span>
+    <a href="w2grid.getCellCopy">getCellCopy</a> <span>- getCellCopy(index, column_index)</span>
 </div>
 <div class="obj-property-desc">
     Returns the content of a cell.
 </div>
 
 <div class="obj-property">
-    <a href="w2grid.getCellEditable">getCellEditable</a> <span>- getCellEditable(ind, col_ind)</span>
+    <a href="w2grid.getCellEditable">getCellEditable</a> <span>- getCellEditable(index, column_index)</span>
 </div>
 <div class="obj-property-desc">
     Returns null or the editable object if the given cell is editable.
@@ -680,7 +680,7 @@
 </div>
 
 <div class="obj-property">
-    <a href="w2grid.showBubble">showBubble</a> <span>- showBubble(ind, col_ind)</span>
+    <a href="w2grid.showBubble">showBubble</a> <span>- showBubble(index, column_index)</span>
 </div>
 <div class="obj-property-desc">
     Shows the info bubble on a cell.
