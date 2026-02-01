@@ -1012,6 +1012,12 @@ class w2form extends w2base {
         })
     }
 
+    addErrors(fieldErrors) {
+        for (const [fieldName, error] of Object.entries(fieldErrors)) {
+            this.last.errors.push({field: this.get(fieldName), error})
+        }
+    }
+
     getChanges() {
         // TODO: not working on nested structures
         let diff = {}
