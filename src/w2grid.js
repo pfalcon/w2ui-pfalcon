@@ -1861,6 +1861,36 @@ class w2grid extends w2base {
         return unselected
     }
 
+    // Takes indexes and returns array if recid's
+    getRowRange(start, end) {
+        let sel_add = []
+        if (start > end) { let tmp = start; start = end; end = tmp }
+        let url = this.url?.get ?? this.url
+        for (let i = start; i <= end; i++) {
+            if (this.searchData.length > 0 && !url && !this.last.searchIds.includes(i)) continue
+            if (this.selectType == 'row') {
+                sel_add.push(this.records[i].recid)
+            } else {
+                for (let sc = 0; sc < selectColumns.length; sc++) {
+                    sel_add.push({ recid: this.records[i].recid, column: selectColumns[sc] })
+                }
+            }
+        }
+        return sel_add
+    }
+
+    selectRange(start, end) {
+        console.log(`selectRange(${start}, ${end})`)
+        const sel_add = this.getRowRange(start, end)
+        this.select(sel_add)
+    }
+
+    unselectRange(start, end) {
+        console.log(`unselectRange(${start}, ${end})`)
+        const sel_add = this.getRowRange(start, end)
+        this.unselect(sel_add)
+    }
+
     compareSelection(newSel) {
         let sel = this.getSelection()
         let select = []
@@ -4329,23 +4359,29 @@ class w2grid extends w2base {
         function moveUp(numRows) {
             if (empty) selectTopRecord()
             if (recEL.length <= 0) return
+            let first
+            if (obj.searchData.length != 0 && !url) {
+                first = obj.last.searchIds[0]
+            } else {
+                first = 0
+            }
             // move to the previous record
             let prev = obj.prevRow(ind, obj.selectType == 'row' ? 0 : sel[0].column, numRows)
             if (prev == null) {
-                if (obj.searchData.length != 0 && !url) {
-                    prev = obj.last.searchIds[0]
-                } else {
-                    prev = 0
-                }
+                prev = first
             }
+            //console.log(`moveUp: sel_ind=${obj.last.sel_ind}, ind=${ind}, ind2=${ind2}, prev=${prev}`);
             if (prev != null) {
                 if (shiftKey && obj.multiSelect) { // expand selection
                     if (tmpUnselect()) return
                     if (obj.selectType == 'row') {
-                        if (obj.last.sel_ind > prev && obj.last.sel_ind != ind2) {
-                            obj.unselect(obj.records[ind2].recid)
+                        if (obj.last.sel_ind >= prev && obj.last.sel_ind != ind2) {
+                            let prev_uns = obj.prevRow(ind2, obj.selectType == 'row' ? 0 : sel[0].column, numRows)
+                            if (prev_uns === null)
+                                prev_uns = first
+                            obj.unselectRange(prev_uns + 1, ind2)
                         } else {
-                            obj.select(obj.records[prev].recid)
+                            obj.selectRange(ind > 0 ? ind - 1 : 0, prev)
                         }
                     } else {
                         if (obj.last.sel_ind > prev && obj.last.sel_ind != ind2) {
@@ -4376,23 +4412,29 @@ class w2grid extends w2base {
         function moveDown(numRows) {
             if (empty) selectTopRecord()
             if (recEL.length <= 0) return
+            let last
+            if (obj.searchData.length != 0 && !url) {
+                last = obj.last.searchIds[obj.last.searchIds.length - 1]
+            } else {
+                last = obj.records.length - 1
+            }
             // move to the next record
             let next = obj.nextRow(ind2, obj.selectType == 'row' ? 0 : sel[0].column, numRows)
             if (next == null) {
-                if (obj.searchData.length != 0 && !url) {
-                    next = obj.last.searchIds[obj.last.searchIds.length - 1]
-                } else {
-                    next = obj.records.length - 1
-                }
+                next = last
             }
+            //console.log(`moveDown: sel_ind=${obj.last.sel_ind}, ind=${ind}, ind2=${ind2}, next=${next}`);
             if (next != null) {
                 if (shiftKey && obj.multiSelect) { // expand selection
                     if (tmpUnselect()) return
                     if (obj.selectType == 'row') {
-                        if (obj.last.sel_ind < next && obj.last.sel_ind != ind) {
-                            obj.unselect(obj.records[ind].recid)
+                        if (obj.last.sel_ind <= next && obj.last.sel_ind != ind) {
+                            let next_uns = obj.nextRow(ind, obj.selectType == 'row' ? 0 : sel[0].column, numRows)
+                            if (next_uns === null)
+                                next_uns = last
+                            obj.unselectRange(ind, next_uns - 1)
                         } else {
-                            obj.select(obj.records[next].recid)
+                            obj.selectRange(ind2 < next ? ind2 + 1 : next, next)
                         }
                     } else {
                         if (obj.last.sel_ind < next && obj.last.sel_ind != ind) {
