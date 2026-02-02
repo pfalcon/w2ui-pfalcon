@@ -4331,7 +4331,7 @@ class w2grid extends w2base {
             if (recEL.length <= 0) return
             // move to the previous record
             let prev = obj.prevRow(ind, obj.selectType == 'row' ? 0 : sel[0].column, numRows)
-            if (!shiftKey && prev == null) {
+            if (prev == null) {
                 if (obj.searchData.length != 0 && !url) {
                     prev = obj.last.searchIds[0]
                 } else {
@@ -4378,7 +4378,7 @@ class w2grid extends w2base {
             if (recEL.length <= 0) return
             // move to the next record
             let next = obj.nextRow(ind2, obj.selectType == 'row' ? 0 : sel[0].column, numRows)
-            if (!shiftKey && next == null) {
+            if (next == null) {
                 if (obj.searchData.length != 0 && !url) {
                     next = obj.last.searchIds[obj.last.searchIds.length - 1]
                 } else {
