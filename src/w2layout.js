@@ -512,8 +512,8 @@ class w2layout extends w2base {
                 .on('mouseup', self.last.events.mouseUp)
             self.last.resize = {
                 type    : type,
-                x       : evnt.screenX,
-                y       : evnt.screenY,
+                x       : evnt.clientX,
+                y       : evnt.clientY,
                 diff_x  : 0,
                 diff_y  : 0,
                 value   : 0
@@ -613,8 +613,8 @@ class w2layout extends w2base {
             if (edata.isCancelled === true) return
 
             let p         = query(self.box).find('#layout_'+ self.name + '_resizer_'+ tmp.type)
-            let resize_x  = (evnt.screenX - tmp.x)
-            let resize_y  = (evnt.screenY - tmp.y)
+            let resize_x  = (evnt.clientX - tmp.x)
+            let resize_y  = (evnt.clientY - tmp.y)
             let mainPanel = self.get('main')
 
             if (!p.hasClass('active')) p.addClass('active')
