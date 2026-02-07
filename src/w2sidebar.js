@@ -948,8 +948,8 @@ class w2sidebar extends w2base {
         let self = this
         if (this.reorder) {
             this.last.move = {
-                x: event.screenX,
-                y: event.screenY,
+                x: event.clientX,
+                y: event.clientY,
                 divX: 0,
                 divY: 0,
                 reorder: true,
@@ -995,8 +995,8 @@ class w2sidebar extends w2base {
                 return
             }
             let mv = self.last.move
-            mv.divX = (event.screenX - mv.x)
-            mv.divY = (event.screenY - mv.y)
+            mv.divX = (event.clientX - mv.x)
+            mv.divY = (event.clientY - mv.y)
             if (Math.abs(mv.divX) <= 1 && Math.abs(mv.divY) <= 1) return // only if moved more then 1px
 
             if (self.reorder == true && mv.reorder && !mv.moved) {
