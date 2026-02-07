@@ -1555,8 +1555,8 @@ class w2grid extends w2base {
             let last = sel[sel.length-1]
             self.last.move = {
                 type   : 'expand',
-                x      : event.screenX,
-                y      : event.screenY,
+                x      : event.clientX,
+                y      : event.clientY,
                 divX   : 0,
                 divY   : 0,
                 index  : first.index,
@@ -1579,8 +1579,8 @@ class w2grid extends w2base {
         function mouseMove(event) {
             let mv = self.last.move
             if (!mv || mv.type != 'expand') return
-            mv.divX = (event.screenX - mv.x)
-            mv.divY = (event.screenY - mv.y)
+            mv.divX = (event.clientX - mv.x)
+            mv.divY = (event.clientY - mv.y)
             // find new cell
             let recid, index, column
             let tmp = event.target
@@ -5897,8 +5897,8 @@ class w2grid extends w2base {
                 }
 
                 obj.last.move = {
-                    x      : event.screenX,
-                    y      : event.screenY,
+                    x      : event.clientX,
+                    y      : event.clientY,
                     divX   : 0,
                     divY   : 0,
                     focusX : pos.x,
@@ -6052,8 +6052,8 @@ class w2grid extends w2base {
             }
             let mv = obj.last.move
             if (!mv || !['select', 'select-column'].includes(mv.type)) return
-            mv.divX = (event.screenX - mv.x)
-            mv.divY = (event.screenY - mv.y)
+            mv.divX = (event.clientX - mv.x)
+            mv.divY = (event.clientY - mv.y)
             if (Math.abs(mv.divX) <= 1 && Math.abs(mv.divY) <= 1) return // only if moved more then 1px
             obj.last.cancelClick = true
             if (obj.reorderRows == true && obj.last.move.reorder) {
@@ -6067,8 +6067,8 @@ class w2grid extends w2base {
                     query(obj.box).find('.insert-before')
                     row2.addClass('insert-before')
                     // MOVABLE GHOST
-                    // if (event.screenY - mv.lastY < 0) row1.after(row2); else row2.after(row1);
-                    mv.lastY = event.screenY
+                    // if (event.clientY - mv.lastY < 0) row1.after(row2); else row2.after(row1);
+                    mv.lastY = event.clientY
                     mv.to = recid
                     // line to insert before
                     let pos = { top: row2.get(0)?.offsetTop, left: row2.get(0)?.offsetLeft }
@@ -6724,10 +6724,10 @@ class w2grid extends w2base {
                 if (!event) event = window.event
                 obj.last.colResizing = true
                 obj.last.tmp         = {
-                    x   : event.screenX,
-                    y   : event.screenY,
-                    gx  : event.screenX,
-                    gy  : event.screenY,
+                    x   : event.clientX,
+                    y   : event.clientY,
+                    gx  : event.clientX,
+                    gy  : event.clientY,
                     col : parseInt(query(this).attr('name'))
                 }
                 // find tds that will be resized
@@ -6751,11 +6751,11 @@ class w2grid extends w2base {
                     if (obj.last.colResizing != true) return
                     if (!event) event = window.event
                     // event before
-                    let edata2 = obj.trigger('columnResizeMove', w2utils.extend(edata.detail, { resizeBy: (event.screenX - obj.last.tmp.gx), originalEvent: event }))
+                    let edata2 = obj.trigger('columnResizeMove', w2utils.extend(edata.detail, { resizeBy: (event.clientX - obj.last.tmp.gx), originalEvent: event }))
                     if (edata2.isCancelled === true) { return }
                     // default action
-                    obj.last.tmp.x = (event.screenX - obj.last.tmp.x)
-                    obj.last.tmp.y = (event.screenY - obj.last.tmp.y)
+                    obj.last.tmp.x = (event.clientX - obj.last.tmp.x)
+                    obj.last.tmp.y = (event.clientY - obj.last.tmp.y)
                     let newWidth   = (parseInt(obj.columns[obj.last.tmp.col].size) + obj.last.tmp.x) + 'px'
                     obj.columns[obj.last.tmp.col].size = newWidth
                     if (timer) clearTimeout(timer)
@@ -6766,8 +6766,8 @@ class w2grid extends w2base {
                     // quick resize
                     obj.last.tmp.tds.css({ width: newWidth })
                     // reset
-                    obj.last.tmp.x = event.screenX
-                    obj.last.tmp.y = event.screenY
+                    obj.last.tmp.x = event.clientX
+                    obj.last.tmp.y = event.clientY
                     // event after
                     edata2.finish()
                 }
