@@ -5906,7 +5906,7 @@ class w2grid extends w2base {
                     focusY : pos.y,
                     recid  : recid,
                     column : parseInt(event.target.tagName.toUpperCase() == 'TD' ? query(event.target).attr('col') : query(event.target).parents('td').attr('col')),
-                    type   : 'select',
+                    type   : obj.draggableRows ? '' : 'select', // If we support row drag, we don't use drag to extend selection
                     ghost  : false,
                     start  : true
                 }
