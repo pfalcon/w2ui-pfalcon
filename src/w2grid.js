@@ -193,6 +193,7 @@ class w2grid extends w2base {
         this.multiSort         = true
         this.reorderColumns    = false
         this.reorderRows       = false
+        this.draggableRows     = false
         this.showExtraOnSearch = 0 // show extra records before and after on search
         this.markSearch        = true
         this.columnTooltip     = 'top|bottom' // can be top, bottom, left, right
@@ -8204,6 +8205,7 @@ class w2grid extends w2base {
                 (record.w2ui && record.w2ui.expanded === true ? ' w2ui-expanded' : '') + '" ' +
             ' style="height: '+ this.recordHeight +'px; '+ (!isRowSelected && rec_style != '' ? rec_style : rec_style.replace('background-color', 'none')) +'" '+
                 (rec_style != '' ? 'custom_style="'+ rec_style +'"' : '') +
+                (this.draggableRows ? ' draggable' : '') +
             '>'
         rec_html2 += '<tr id="grid_'+ this.name +'_rec_'+ record.recid +'" recid="'+ record.recid +'" line="'+ lineNum +'" index="'+ ind +'" '+
             ' class="'+ (lineNum % 2 === 0 ? 'w2ui-even' : 'w2ui-odd') + ' w2ui-record ' + rec_class +
@@ -8212,6 +8214,7 @@ class w2grid extends w2base {
                 (record.w2ui && record.w2ui.expanded === true ? ' w2ui-expanded' : '') + '" ' +
             ' style="height: '+ this.recordHeight +'px; '+ (!isRowSelected && rec_style != '' ? rec_style : rec_style.replace('background-color', 'none')) +'" '+
                 (rec_style != '' ? 'custom_style="'+ rec_style +'"' : '') +
+                (this.draggableRows ? ' draggable="true"' : '') +
             '>'
         if (this.show.lineNumbers) {
             rec_html1 += '<td id="grid_'+ this.name +'_cell_'+ ind +'_number' + (summary ? '_s' : '') + '" '+
