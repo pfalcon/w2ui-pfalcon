@@ -6552,7 +6552,7 @@ class w2grid extends w2base {
                         <span class="name-text"></span>
                         <span class="name-cross w2ui-action" data-click="searchReset">x</span>
                     </div>
-                    <input type="text" id="grid_${this.name}_search_all" class="w2ui-search-all" tabindex="-1"
+                    <input type="search" id="grid_${this.name}_search_all" class="w2ui-search-all" tabindex="-1"
                         autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false"
                         placeholder="${w2utils.lang(this.last.label, true)}" value="${this.last.search}"
                         data-focus="searchSuggest" data-click="stop"
@@ -6604,6 +6604,10 @@ class w2grid extends w2base {
                                     break
                                 }
                             }
+                        })
+                        .on('search', (event) => {
+                            if (event.target.value === '')
+                                this.searchReset()
                         })
                 }
             })
