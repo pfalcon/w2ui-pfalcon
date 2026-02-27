@@ -3846,7 +3846,9 @@ class w2grid extends w2base {
                     flag = false
                 }
                 if (flag === true && sel.length == 1) {
-                    this.unselect({ recid: recid, column: column })
+                    // Clicking (without any modifier) on the already selected row should
+                    // not unselect it (if user wants that, they can Ctrl+Click).
+                    //this.unselect({ recid: recid, column: column })
                 } else {
                     this.selectNone(true) // no need to trigger select event
                     this.select({ recid: recid, column: column })
