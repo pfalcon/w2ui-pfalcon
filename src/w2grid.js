@@ -4598,22 +4598,24 @@ class w2grid extends w2base {
         // smooth or instant
         records.css({ 'scroll-behavior': instant ? 'auto' : 'smooth' })
 
+        const scrollParam = {}
+
         // vertical
         if (recHeight < this.recordHeight * (len > 0 ? len : buffered) && records.length > 0) {
             // scroll to correct one
             let t1 = Math.floor(recSTop / this.recordHeight)
             let t2 = t1 + Math.floor(recHeight / this.recordHeight)
             if (ind == t1) {
-                records.prop('scrollTop', recSTop - recHeight / 1.3)
+                scrollParam.top = recSTop - recHeight / 1.3
             }
             if (ind == t2) {
-                records.prop('scrollTop', recSTop + recHeight / 1.3)
+                scrollParam.top = recSTop + recHeight / 1.3
             }
             if (ind < t1 || ind > t2) {
-                records.prop('scrollTop', (ind - 1) * this.recordHeight)
+                scrollParam.top = (ind - 1) * this.recordHeight
             }
             if (recTop === true) {
-                records.prop('scrollTop', ind * this.recordHeight)
+                scrollParam.top = ind * this.recordHeight
             }
         }
 
@@ -4629,11 +4631,13 @@ class w2grid extends w2base {
                 x2 += parseInt(col.sizeCalculated)
             }
             if (recWidth < x2 - recSLeft) { // right
-                records.prop('scrollLeft', x1 - sb)
+                scrollParam.left = x1 - sb
             } else if (x1 < recSLeft) { // left
-                records.prop('scrollLeft', x2 - recWidth + sb * 2)
+                scrollParam.left = x2 - recWidth + sb * 2
             }
         }
+
+        setTimeout(() => { records[0].scroll(scrollParam); }, 0);
     }
 
     scrollToColumn(field) {
