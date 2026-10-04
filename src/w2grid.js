@@ -44,7 +44,7 @@
  *  - aded msgServerError
  *  - added mouseEnter/mouseLeave
  *  - grid.show.columnReorder -> grid.reorderRows
- *  - updagte docs search.label (not search.text)
+ *  - update docs search.label (not search.text)
  *  - added columnAutoSize - which resizes column based on text in it
  *  - added grid.replace()
  *  - grid.compareSelection
