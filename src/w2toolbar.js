@@ -1004,7 +1004,7 @@ class w2toolbar extends w2base {
             value = Number(value).toFixed(prec)
         }
 
-        // event beofre
+        // event before
         let edata = this.trigger(dynamic ? 'input' : 'change', { target: id, id, value, item: it })
         if (edata.isCancelled) {
             return
